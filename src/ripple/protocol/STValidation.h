@@ -102,7 +102,7 @@ public:
     uint256
     getConsensusHash() const;
 
-    std::uint64_t
+    std::uint32_t
     getNetworkID() const;
 
     NetClock::time_point
