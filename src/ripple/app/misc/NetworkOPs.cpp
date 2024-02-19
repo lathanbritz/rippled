@@ -2309,11 +2309,12 @@ NetworkOPsImp::recvValidation(
     std::string const& source)
 {
     // Don't relay validations from another network.
-    auto networkID = (*val)[~sfNetworkID];
-    auto const view = m_ledgerMaster.getCurrentLedger();
+    if (auto networkID = app_.overlay().networkID()) {
+        auto const view = m_ledgerMaster.getCurrentLedger();
 
-    if (view->rules().enabled(featureNetworkIDValidation) && val->getNetworkID() != networkID)
-        return false;
+        if (view->rules().enabled(featureNetworkIDValidation) && val->getNetworkID() != networkID)
+            return false;
+    }
 
     JLOG(m_journal.trace())
         << "recvValidation " << val->getLedgerHash() << " from " << source;
