@@ -2312,7 +2312,7 @@ NetworkOPsImp::recvValidation(
     if (auto networkID = app_.overlay().networkID()) {
         auto const view = m_ledgerMaster.getCurrentLedger();
 
-        if (view->rules().enabled(featureNetworkIDValidation) && val->getNetworkID() != networkID)
+        if (view->rules().enabled(featureNetworkIDValidation) && val->getNetworkID() != static_cast<Json::UInt>(*networkID))
             return false;
     }
 
